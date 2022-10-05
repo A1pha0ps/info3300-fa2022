@@ -136,7 +136,7 @@
 
             // Now add buttons and make interactive version
 
-            chartArea.selectAll('rect.bar').data(data).join(
+            chartArea.selectAll('rect.bar').data(data, d => d['genre']).join(
               enter => enter.append('rect').attr('class', 'bar').attr('fill', 'steelblue').attr('class', 'bar').attr('fill', 'steelblue')
                 .attr('x', d => genreScale(d['genre'])).attr('y', d => percentScale(d['percentpass']))
                 .attr('height', d => percentScale(0) - percentScale(d['percentpass']))
