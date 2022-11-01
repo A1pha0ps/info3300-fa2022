@@ -13,7 +13,7 @@ app = Flask(__name__, static_url_path='')  # By default, looks in ./static
 # Root path serves up index.html from the static directory -- we'll be editing this for the d3 part of the lecture
 @app.route('/')
 def index():
-    return app.send_static_file('index.1107.prof.html')
+    return app.send_static_file('index.html')
 
 @app.route('/css/<path:path>')
 def send_css(path):
