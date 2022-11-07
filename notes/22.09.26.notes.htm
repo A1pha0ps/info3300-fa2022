@@ -80,10 +80,8 @@
       d3.json("../datasets/bechdeltest-by-genre.json", d3.autoType)
         .then((yearData) => {
 
-          console.log(yearData);
 
           const data = yearData['All Years'];
-          console.log(data);
 
 
 
@@ -120,8 +118,6 @@
           let bottomAxis = d3.axisBottom(genreScale);
           let bottomAxisG = annotations.append('g').attr('class', 'x axis').attr('transform', `translate(${margin.left}, ${chartHeight + margin.top + 10})`).call(bottomAxis);
 
-
-
           function updateBars(yearKey) {
 
             const data = yearData[yearKey];
@@ -137,12 +133,22 @@
             // Now add buttons and make interactive version
 
             chartArea.selectAll('rect.bar').data(data, d => d['genre']).join(
-              enter => enter.append('rect').attr('class', 'bar').attr('fill', 'steelblue').attr('class', 'bar').attr('fill', 'steelblue')
-                .attr('x', d => genreScale(d['genre'])).attr('y', d => percentScale(d['percentpass']))
+              enter => enter.append('rect')
+                .attr('class', 'bar')
+                .attr('fill', 'steelblue')
+                .attr('class', 'bar')
+                .attr('fill', 'steelblue')
+                .attr('x', d => genreScale(d['genre']))
+                .attr('y', d => percentScale(d['percentpass']))
                 .attr('height', d => percentScale(0) - percentScale(d['percentpass']))
-                .attr('width', genreScale.bandwidth()).attr('opacity', 0).call(enter => enter.transition().attr('opacity', 1)),
-              update => update.call(update => update.transition().attr('x', d => genreScale(d['genre'])).attr('y', d => percentScale(d['percentpass']))
-                .attr('height', d => percentScale(0) - percentScale(d['percentpass'])).attr('width', genreScale.bandwidth())),
+                .attr('width', genreScale.bandwidth())
+                .attr('opacity', 0)
+                .call(enter => enter.transition().attr('opacity', 1)),
+              update => update.call(update => update.transition()
+                .attr('x', d => genreScale(d['genre']))
+                .attr('y', d => percentScale(d['percentpass']))
+                .attr('height', d => percentScale(0) - percentScale(d['percentpass']))
+                .attr('width', genreScale.bandwidth())),
               exit => exit.call(exit => exit.transition().attr('opacity', 0).remove())
             )
 
